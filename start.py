@@ -9,5 +9,5 @@ class Program(Tk):
 		self.state("zoomed") # Maximize window
 
 root = Program()
-start_page.Page(root).pack(fill=BOTH, expand=True)
+leaderboard_page.Page(root).pack(fill=BOTH, expand=True)
 root.mainloop()
