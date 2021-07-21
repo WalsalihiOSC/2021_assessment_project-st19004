@@ -6,7 +6,8 @@ class Program(Tk):
 		super().__init__()
 
 		self.geometry("1920x1080")
-		start_page.Page(self).pack(fill=BOTH, expand=True)
+		self.state("zoomed") # Maximize window
 
 root = Program()
+start_page.Page(root).pack(fill=BOTH, expand=True)
 root.mainloop()
