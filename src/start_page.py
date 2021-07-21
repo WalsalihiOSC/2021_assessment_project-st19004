@@ -14,7 +14,7 @@ class Page(Frame):
 		title_section = Frame(self, bg=COLOURSCHEME[3])
 		title_section.grid(column=0, row=0, sticky=NSEW)
 
-		title = Label(title_section, text="Untitled Math Program", font=TITLE_FONT, bg=COLOURSCHEME[3], fg="#FFFFFF")
+		title = Label(title_section, text="Untitled Math Program", font=TITLE_FONT, bg=COLOURSCHEME[3], fg=COLOURSCHEME[1])
 		title.grid(column=0, row=0)
 
 
