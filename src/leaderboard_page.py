@@ -1,7 +1,7 @@
 from tkinter import Frame, Label, NSEW, LEFT
-from src import base_page
+from .base_page import BasePage
 
-class Page(base_page.BasePage):
+class Page(BasePage):
 	def __init__(self, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)
 		self.columnconfigure(0, weight=1) # Ensure the frame size stretches to fit horizontally
