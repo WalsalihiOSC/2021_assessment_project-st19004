@@ -22,7 +22,18 @@ class Program(Tk):
 		page = page.Page(self, *args, **kwargs)
 		page.pack(fill=BOTH, expand=True)
 		self.pages.append(page)
-		
+	
+	def pop_page(self) -> BasePage:
+		page = self.pages.pop()
+		page.pack_forget()
+		if self.pages:
+			self.pages[-1].pack(fill=BOTH, expand=True)
+		return page
 
-root = Program(leaderboard_page)
+root = Program(start_page)
+
+if __debug__:
+	root.after(1000, root.append_page, leaderboard_page)
+	root.after(2000, root.pop_page)
+
 root.mainloop()
