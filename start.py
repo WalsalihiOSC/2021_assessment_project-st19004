@@ -11,5 +11,5 @@ class Program(Tk):
 		self.geometry("1920x1080")
 		self.state("zoomed") # Maximize window
 
-root = Program(leaderboard_page)
+root = Program(match_page)
 root.mainloop()
