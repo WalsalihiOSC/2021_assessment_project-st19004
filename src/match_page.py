@@ -1,4 +1,4 @@
-from tkinter import Frame, Label, NSEW, LEFT
+from tkinter import Button, Frame, Label, NSEW, LEFT
 from .base_page import BasePage
 
 class Page(BasePage):
@@ -14,6 +14,9 @@ class Page(BasePage):
 
 		title = Label(title_section, text="XXX+XXX=", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.grid(column=0, row=0)
+
+		back_button = Button(title_section, text="Back", command=self.page_back)
+		back_button.grid(column=1, row=0)
 
 
 		# Header section

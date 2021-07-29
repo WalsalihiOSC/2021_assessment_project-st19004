@@ -11,3 +11,6 @@ class BasePage(Frame):
 
 	def show_match(self):
 		self.master.show_page("match")
+	
+	def page_back(self):
+		self.master.pop_page()
