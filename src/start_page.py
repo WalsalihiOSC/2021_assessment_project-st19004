@@ -1,5 +1,20 @@
-from tkinter import Frame, Label, NSEW, LEFT
+from tkinter import Button, Frame, Label, NSEW, LEFT
 from .base_page import BasePage
+
+class HoverButton(Button):
+	COLOURSCHEME = ["#707070", "#FFFFFF", "#1FB500", "#28C538"]
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		
+		self.bind("<Enter>", self.on_enter)
+		self.bind("<Leave>", self.on_leave)
+
+	def on_enter(self, event):
+		self.config(bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
+
+	def on_leave(self, event):
+		self.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
 
 class Page(BasePage):
 	def __init__(self, *args, **kwargs) -> None:
@@ -28,7 +43,7 @@ class Page(BasePage):
 		level_header_label.pack(side=LEFT)
 
 		for level in ["Easy", "Normal", "Hard"]:
-			label = Label(level_header, text=level, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+			label = Label(level_header, text=level, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], highlightbackground=self.COLOURSCHEME[2])
 			label.pack(side=LEFT)
 
 		recent_match_header = Frame(header_section, bg=self.COLOURSCHEME[2])
@@ -46,12 +61,11 @@ class Page(BasePage):
 
 		level_content = Frame(content_section, bg=self.COLOURSCHEME[1])
 		level_content.grid(column=0, row=0, sticky=NSEW)
+		level_content.columnconfigure(0, weight=1)
 		for i, level in enumerate(["Addition", "Subtraction", "Multiplication", "Division"]):
 			level_content.rowconfigure(i, weight=1)
-			frame = Frame(level_content, bg=self.COLOURSCHEME[1])
-			frame.grid(column=0, row=i, sticky=NSEW)
-			label = Label(frame, text=level, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
-			label.pack(side=LEFT)
+			label = HoverButton(level_content, text=level, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w")
+			label.grid(column=0, row=i, sticky=NSEW)
 		
 		recent_match_content = Frame(content_section, bg=self.COLOURSCHEME[1])
 		recent_match_content.grid(column=1, row=0, sticky=NSEW)
