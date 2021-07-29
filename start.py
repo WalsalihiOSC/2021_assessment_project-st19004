@@ -15,6 +15,7 @@ class Program(Tk):
 		self.state("zoomed") # Maximize window
 	
 	def append_page(self, page: BasePage, *args, **kwargs) -> None:
+		"""Places page on top"""
 		# An empty list is implicitly false
 		if self.pages:
 			self.pages[-1].pack_forget()
@@ -24,6 +25,7 @@ class Program(Tk):
 		self.pages.append(page)
 	
 	def pop_page(self) -> BasePage:
+		"""Removes the top most page"""
 		page = self.pages.pop()
 		page.pack_forget()
 		if self.pages:
@@ -31,9 +33,4 @@ class Program(Tk):
 		return page
 
 root = Program(start_page)
-
-if __debug__:
-	root.after(1000, root.append_page, leaderboard_page)
-	root.after(2000, root.pop_page)
-
 root.mainloop()
