@@ -2,6 +2,10 @@ from tkinter import Button, Frame, Label, NSEW, LEFT
 from .base_page import BasePage
 
 class HoverButton(Button):
+	"""
+	Creates a button that when hovered over,
+	changes the background and foreground to match colourscheme
+	"""
 	COLOURSCHEME = ["#707070", "#FFFFFF", "#1FB500", "#28C538"]
 
 	def __init__(self, *args, **kwargs):
@@ -11,9 +15,11 @@ class HoverButton(Button):
 		self.bind("<Leave>", self.on_leave)
 
 	def on_enter(self, event):
+		"""Method for when <Enter> is triggered"""
 		self.config(bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
 
 	def on_leave(self, event):
+		"""Method for when <Leave> is triggered"""
 		self.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
 
 class Page(BasePage):
@@ -21,14 +27,12 @@ class Page(BasePage):
 		super().__init__(*args, **kwargs)
 		self.columnconfigure(0, weight=1) # Ensure the frame size stretches to fit horizontally
 
-
 		# Title section
 		title_section = Frame(self, bg=self.COLOURSCHEME[3])
 		title_section.grid(column=0, row=0, sticky=NSEW)
 
 		title = Label(title_section, text="Untitled Math Program", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.grid(column=0, row=0)
-
 
 		# Header section
 		header_section = Frame(self, bg=self.COLOURSCHEME[2])
@@ -42,8 +46,9 @@ class Page(BasePage):
 		level_header_label = Label(level_header, text="Level", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
 		level_header_label.pack(side=LEFT)
 
-		for level in ["Easy", "Normal", "Hard"]:
-			label = Label(level_header, text=level, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], highlightbackground=self.COLOURSCHEME[2])
+		# Initialises difficultly
+		for difficulty in ["Easy", "Normal", "Hard"]:
+			label = Label(level_header, text=difficulty, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], highlightbackground=self.COLOURSCHEME[2])
 			label.pack(side=LEFT)
 
 		recent_match_header = Frame(header_section, bg=self.COLOURSCHEME[2])
@@ -51,7 +56,6 @@ class Page(BasePage):
 
 		recent_match_header_label = Label(recent_match_header, text="Recently played", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
 		recent_match_header_label.pack(side=LEFT)
-
 
 		# Content section
 		content_section = Frame(self, bg=self.COLOURSCHEME[1])
@@ -62,9 +66,11 @@ class Page(BasePage):
 		level_content = Frame(content_section, bg=self.COLOURSCHEME[1])
 		level_content.grid(column=0, row=0, sticky=NSEW)
 		level_content.columnconfigure(0, weight=1)
-		for i, level in enumerate(["Addition", "Subtraction", "Multiplication", "Division"]):
+
+		# Initialises levels
+		for i, difficulty in enumerate(["Addition", "Subtraction", "Multiplication", "Division"]):
 			level_content.rowconfigure(i, weight=1)
-			level_button = HoverButton(level_content, text=level, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_match)
+			level_button = HoverButton(level_content, text=difficulty, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_match)
 			level_button.grid(column=0, row=i, sticky=NSEW, padx=12)
 
 			match_button = HoverButton(level_button, text="T", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_leaderboard)

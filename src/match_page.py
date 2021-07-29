@@ -4,9 +4,10 @@ from .base_page import BasePage
 class Page(BasePage):
 	def __init__(self, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)
-		self.columnconfigure(0, weight=1) # Ensure the frame size stretches to fit horizontally
+		# Ensure the frame size stretches to fit horizontally
+		self.columnconfigure(0, weight=1)
+		# Makes the last row(contentt section) take up the rest of the unused space
 		self.rowconfigure(2, weight=1)
-
 
 		# Title section
 		title_section = Frame(self, bg=self.COLOURSCHEME[3])
@@ -17,7 +18,6 @@ class Page(BasePage):
 
 		back_button = Button(title_section, text="Back", command=self.page_back)
 		back_button.grid(column=1, row=0)
-
 
 		# Header section
 		header_section = Frame(self, bg=self.COLOURSCHEME[2])
@@ -37,7 +37,6 @@ class Page(BasePage):
 		score_header_label = Label(score_header, text="Score", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
 		score_header_label.pack(side=LEFT)
 
-
 		# Content section
 		content_section = Frame(self, bg=self.COLOURSCHEME[1])
 		content_section.grid(column=0, row=2, sticky=NSEW)
@@ -46,19 +45,25 @@ class Page(BasePage):
 		content_section.columnconfigure(2, weight=1)
 		content_section.rowconfigure(0, weight=1)
 
+		# Calculator
 		calculator_frame = Frame(content_section, bg=self.COLOURSCHEME[1])
 		calculator_frame.grid(column=1, row=0, sticky=NSEW, pady=30)
+
+		# Padding to keep calculator centred
 		padding_frame_left = Frame(content_section, bg=self.COLOURSCHEME[1])
 		padding_frame_left.grid(column=0, row=0, sticky=NSEW)
 		padding_frame_right = Frame(content_section, bg=self.COLOURSCHEME[1])
 		padding_frame_right.grid(column=2, row=0, sticky=NSEW)
 
+		# Initialisation for the calculator's buttons
 		for row in range(3):
 			for col in range(3):
 				calculator_frame.columnconfigure(col, weight=1)
 				calculator_frame.rowconfigure(row, weight=1)
 				label = Label(calculator_frame, text=str(row*3+col+1), bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
 				label.grid(column=col, row=row, sticky=NSEW, padx=10, pady=10)
+		# Initialisation for the last 2 buttons
+		# Should be changed to reduce duplication
 		calculator_frame.rowconfigure(3, weight=1)
 		label = Label(calculator_frame, text="0", bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
 		label.grid(column=0, row=3, sticky=NSEW, padx=10, pady=10)

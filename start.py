@@ -33,6 +33,12 @@ class Program(Tk):
 		return page
 	
 	def show_page(self, wanted_page: str, *args, **kwargs):
+		"""
+		Shows a specific defined page:
+			start
+			leaderboard
+			match
+		"""
 		page: BasePage
 		if wanted_page == "start":
 			page = start_page
