@@ -64,8 +64,11 @@ class Page(BasePage):
 		level_content.columnconfigure(0, weight=1)
 		for i, level in enumerate(["Addition", "Subtraction", "Multiplication", "Division"]):
 			level_content.rowconfigure(i, weight=1)
-			label = HoverButton(level_content, text=level, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w")
-			label.grid(column=0, row=i, sticky=NSEW)
+			level_button = HoverButton(level_content, text=level, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_match)
+			level_button.grid(column=0, row=i, sticky=NSEW, padx=12)
+
+			match_button = HoverButton(level_button, text="T", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_leaderboard)
+			match_button.pack(side="right", padx=12)
 		
 		recent_match_content = Frame(content_section, bg=self.COLOURSCHEME[1])
 		recent_match_content.grid(column=1, row=0, sticky=NSEW)

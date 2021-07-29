@@ -31,6 +31,19 @@ class Program(Tk):
 		if self.pages:
 			self.pages[-1].pack(fill=BOTH, expand=True)
 		return page
+	
+	def show_page(self, wanted_page: str, *args, **kwargs):
+		page: BasePage
+		if wanted_page == "start":
+			page = start_page
+		elif wanted_page == "leaderboard":
+			page = leaderboard_page
+		elif wanted_page == "match":
+			page = match_page
+		else:
+			raise ValueError
+		
+		self.append_page(page, *args, **kwargs)
 
 root = Program(start_page)
 root.mainloop()

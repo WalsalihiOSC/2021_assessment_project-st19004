@@ -5,3 +5,9 @@ class BasePage(Frame):
 	TITLE_FONT = ("Arial", 100)
 	HEADER_FONT = ("Arial", 32)
 	CONTENT_FONT = ("Arial", 32)
+
+	def show_leaderboard(self):
+		self.master.show_page("leaderboard")
+
+	def show_match(self):
+		self.master.show_page("match")
