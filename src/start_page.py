@@ -48,8 +48,8 @@ class Page(BasePage):
 
 		# Initialises difficultly
 		for difficulty in ["Easy", "Normal", "Hard"]:
-			label = Label(level_header, text=difficulty, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], highlightbackground=self.COLOURSCHEME[2])
-			label.pack(side=LEFT)
+			difficulty_button = HoverButton(level_header, text=difficulty, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat")
+			difficulty_button.pack(side=LEFT)
 
 		recent_match_header = Frame(header_section, bg=self.COLOURSCHEME[2])
 		recent_match_header.grid(column=1, row=0, sticky=NSEW)
