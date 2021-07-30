@@ -71,10 +71,10 @@ class Page(BasePage):
 		for i, difficulty in enumerate(["Addition", "Subtraction", "Multiplication", "Division"]):
 			level_content.rowconfigure(i, weight=1)
 			level_button = HoverButton(level_content, text=difficulty, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_match)
-			level_button.grid(column=0, row=i, sticky=NSEW, padx=12)
+			level_button.grid(column=0, row=i, sticky=NSEW)
 
-			match_button = HoverButton(level_button, text="T", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="w", command=self.show_leaderboard)
-			match_button.pack(side="right", padx=12)
+			match_button = HoverButton(level_content, text="T", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat", anchor="center", command=self.show_leaderboard)
+			match_button.grid(column=1, row=i, sticky=NSEW)
 		
 		recent_match_content = Frame(content_section, bg=self.COLOURSCHEME[1])
 		recent_match_content.grid(column=1, row=0, sticky=NSEW)
