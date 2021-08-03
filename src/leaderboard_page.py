@@ -1,4 +1,5 @@
-from tkinter import Button, Frame, Label, NSEW, LEFT
+from tkinter import Button, Frame, Image, Label, NSEW, LEFT, PhotoImage
+from .custom_widget import BackButton
 from .base_page import BasePage
 
 class Page(BasePage):
@@ -13,8 +14,8 @@ class Page(BasePage):
 		title = Label(title_section, text="Level {level} {difficulty}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.grid(column=0, row=0)
 
-		back_button = Button(title_section, text="Back", command=self.page_back)
-		back_button.grid(column=1, row=0)
+		back_button = BackButton(title_section, command=self.page_back, bg=self.COLOURSCHEME[3], relief="flat")
+		back_button.place(relx=1, rely=0, x=-10, y=10, anchor="ne")
 
 		# Header section
 		header_section = Frame(self, bg=self.COLOURSCHEME[2])

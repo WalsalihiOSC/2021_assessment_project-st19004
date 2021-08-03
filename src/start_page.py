@@ -1,4 +1,5 @@
 from tkinter import Button, Frame, Label, NSEW, LEFT
+from .custom_widget import HoverButton
 from .base_page import BasePage
 
 class HoverButton(Button):
