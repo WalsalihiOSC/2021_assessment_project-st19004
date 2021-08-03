@@ -7,14 +7,14 @@ class BasePage(Frame):
 	HEADER_FONT = ("Arial", 32)
 	CONTENT_FONT = ("Arial", 32)
 
-	def show_leaderboard(self):
+	def show_leaderboard(self) -> None:
 		"""Tells program to show leaderboard"""
 		self.master.show_page("leaderboard")
 
-	def show_match(self):
+	def show_match(self) -> None:
 		"""Tells program to show match"""
 		self.master.show_page("match")
 	
-	def page_back(self):
+	def page_back(self) -> None:
 		"""Tells program to go back one page"""
 		self.master.pop_page()

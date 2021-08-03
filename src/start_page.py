@@ -2,27 +2,6 @@ from tkinter import Button, Frame, Label, NSEW, LEFT
 from .custom_widget import HoverButton
 from .base_page import BasePage
 
-class HoverButton(Button):
-	"""
-	Creates a button that when hovered over,
-	changes the background and foreground to match colourscheme
-	"""
-	COLOURSCHEME = ["#707070", "#FFFFFF", "#1FB500", "#28C538"]
-
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		
-		self.bind("<Enter>", self.on_enter)
-		self.bind("<Leave>", self.on_leave)
-
-	def on_enter(self, event):
-		"""Method for when <Enter> is triggered"""
-		self.config(bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
-
-	def on_leave(self, event):
-		"""Method for when <Leave> is triggered"""
-		self.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
-
 class Page(BasePage):
 	def __init__(self, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)

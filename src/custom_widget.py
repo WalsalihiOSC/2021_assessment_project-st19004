@@ -7,17 +7,17 @@ class HoverButton(Button):
 	"""
 	COLOURSCHEME = ["#707070", "#FFFFFF", "#1FB500", "#28C538"]
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)
 		
 		self.bind("<Enter>", self.on_enter)
 		self.bind("<Leave>", self.on_leave)
 
-	def on_enter(self, event):
+	def on_enter(self, event) -> None:
 		"""Method for when <Enter> is triggered"""
 		self.config(bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
 
-	def on_leave(self, event):
+	def on_leave(self, event) -> None:
 		"""Method for when <Leave> is triggered"""
 		self.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
 
@@ -27,7 +27,7 @@ class BackButton(Button):
 	"""
 	COLOURSCHEME = ["#707070", "#FFFFFF", "#1FB500", "#28C538"]
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)
 		
 		self.image=PhotoImage(file="asset/back.png")
@@ -37,10 +37,10 @@ class BackButton(Button):
 		self.bind("<Enter>", self.on_enter)
 		self.bind("<Leave>", self.on_leave)
 
-	def on_enter(self, event):
+	def on_enter(self, event) -> None:
 		"""Method for when <Enter> is triggered"""
 		self.config(image=self.image_hover)
 
-	def on_leave(self, event):
+	def on_leave(self, event) -> None:
 		"""Method for when <Leave> is triggered"""
 		self.config(image=self.image)
