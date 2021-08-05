@@ -39,6 +39,9 @@ class Program(Tk):
 			leaderboard
 			match
 		"""
+		if wanted_page is None:
+			raise ValueError("No page specified")
+
 		page: BasePage
 		if wanted_page == "start":
 			page = start_page
@@ -46,8 +49,6 @@ class Program(Tk):
 			page = leaderboard_page
 		elif wanted_page == "match":
 			page = match_page
-		else:
-			raise ValueError
 		
 		self.append_page(page, *args, **kwargs)
 
