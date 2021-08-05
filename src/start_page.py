@@ -24,12 +24,12 @@ class Page(BasePage):
 		level_header.grid(column=0, row=0, sticky=NSEW)
 
 		level_header_label = Label(level_header, text="Level", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
-		level_header_label.pack(side=LEFT)
+		level_header_label.grid(column=0, row=0, sticky=NSEW)
 
 		# Initialises difficultly
-		for difficulty in ["Easy", "Normal", "Hard"]:
+		for i, difficulty in enumerate(["Easy", "Normal", "Hard"], 1):
 			difficulty_button = HoverButton(level_header, text=difficulty, font=self.HEADER_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], relief="flat")
-			difficulty_button.pack(side=LEFT)
+			difficulty_button.grid(column=i, row=0, sticky=NSEW)
 
 		recent_match_header = Frame(header_section, bg=self.COLOURSCHEME[2])
 		recent_match_header.grid(column=1, row=0, sticky=NSEW)

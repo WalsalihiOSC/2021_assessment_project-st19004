@@ -10,9 +10,8 @@ class Program(Tk):
 
 		if initial_page is not None:
 			self.append_page(start_page)
-
-		self.geometry("1920x1080")
-		self.state("zoomed") # Maximize window
+		
+		self.geometry("1200x700")
 	
 	def append_page(self, page: BasePage, *args, **kwargs) -> None:
 		"""Places page on top"""

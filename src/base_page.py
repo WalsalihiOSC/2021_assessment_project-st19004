@@ -3,7 +3,7 @@ from tkinter import Frame
 class BasePage(Frame):
 	"""Methods and attribute that are common to all pages"""
 	COLOURSCHEME = ["#707070", "#FFFFFF", "#1FB500", "#28C538"]
-	TITLE_FONT = ("Arial", 100)
+	TITLE_FONT = ("Arial", 64)
 	HEADER_FONT = ("Arial", 32)
 	CONTENT_FONT = ("Arial", 32)
 
