@@ -1,20 +1,27 @@
 from tkinter import Button, Frame, Label, NSEW, LEFT
+from random import randint
 from .custom_widget import BackButton
 from .base_page import BasePage
 
 class Page(BasePage):
-	def __init__(self, *args, **kwargs) -> None:
-		super().__init__(*args, **kwargs)
+	def __init__(self, match_settings, *args, **kwargs) -> None:
+		super().__init__()
 		# Ensure the frame size stretches to fit horizontally
 		self.columnconfigure(0, weight=1)
 		# Makes the last row(contentt section) take up the rest of the unused space
 		self.rowconfigure(2, weight=1)
 
+		level, operator = match_settings
+
 		# Title section
 		title_section = Frame(self, bg=self.COLOURSCHEME[3])
 		title_section.grid(column=0, row=0, sticky=NSEW)
 
-		title = Label(title_section, text="XXX+XXX=", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
+		num1 = randint(1*10**(level-1), 1*10**level)
+		num2 = randint(1*10**(level-1), 1*10**level)
+		equation = f"{num1}{operator}{num2}"
+
+		title = Label(title_section, text=f"{equation}={eval(equation)}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.grid(column=0, row=0)
 
 		back_button = BackButton(title_section, command=self.page_back, bg=self.COLOURSCHEME[3], relief="flat")

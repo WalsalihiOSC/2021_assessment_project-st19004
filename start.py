@@ -19,7 +19,7 @@ class Program(Tk):
 		if self.pages:
 			self.pages[-1].pack_forget()
 
-		page = page.Page(self, *args, **kwargs)
+		page = page.Page(master=self, *args, **kwargs)
 		page.pack(fill=BOTH, expand=True)
 		self.pages.append(page)
 	
