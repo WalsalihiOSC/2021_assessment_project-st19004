@@ -1,5 +1,6 @@
-from tkinter import Button, Frame, Label, NSEW, LEFT
+from tkinter import Button, Frame, Label, NSEW, LEFT, Entry, StringVar
 from random import randint
+from tkinter.constants import CENTER
 from .custom_widget import BackButton
 from .base_page import BasePage
 
@@ -20,9 +21,14 @@ class Page(BasePage):
 		num1 = randint(1*10**(level-1), 1*10**level)
 		num2 = randint(1*10**(level-1), 1*10**level)
 		equation = f"{num1}{operator}{num2}"
+		answer = eval(equation)
 
-		title = Label(title_section, text=f"{equation}={eval(equation)}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
+		title = Label(title_section, text=f"{equation}={answer}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.grid(column=0, row=0)
+
+		answer_var = StringVar()
+		answer_box = Entry(title_section, width=6, font=self.TITLE_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], justify=CENTER, textvariable=answer_var, validate="key", validatecommand=(self.register(self.validate_input), "%P"))
+		answer_box.grid(column=1, row=0)
 
 		back_button = BackButton(title_section, command=self.page_back, bg=self.COLOURSCHEME[3], relief="flat")
 		back_button.place(relx=1, rely=0, x=-10, y=10, anchor="ne")
@@ -77,3 +83,7 @@ class Page(BasePage):
 		label.grid(column=0, row=3, sticky=NSEW, padx=10, pady=10)
 		label = Label(calculator_frame, text="Enter", bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
 		label.grid(column=1, row=3, sticky=NSEW, columnspan=2, padx=10, pady=10)
+
+	def validate_input(self, text: str):
+		"""Return true if text is a digit or is empty"""
+		return text.isdigit() or text == ""
