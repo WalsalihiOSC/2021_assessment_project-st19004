@@ -21,14 +21,16 @@ class Page(BasePage):
 		num1 = randint(1*10**(level-1), 1*10**level)
 		num2 = randint(1*10**(level-1), 1*10**level)
 		equation = f"{num1}{operator}{num2}"
-		answer = eval(equation)
+		# Evaluate equation and turn the number into a string
+		self.answer = answer = str(eval(equation))
 
 		title = Label(title_section, text=f"{equation}={answer}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.grid(column=0, row=0)
 
-		answer_var = StringVar()
+		self.answer_var = answer_var = StringVar()
 		answer_box = Entry(title_section, width=6, font=self.TITLE_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], justify=CENTER, textvariable=answer_var, validate="key", validatecommand=(self.register(self.validate_input), "%P"))
 		answer_box.grid(column=1, row=0)
+		answer_box.bind("<Return>", self.check_answer)
 
 		back_button = BackButton(title_section, command=self.page_back, bg=self.COLOURSCHEME[3], relief="flat")
 		back_button.place(relx=1, rely=0, x=-10, y=10, anchor="ne")
@@ -84,6 +86,12 @@ class Page(BasePage):
 		label = Label(calculator_frame, text="Enter", bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
 		label.grid(column=1, row=3, sticky=NSEW, columnspan=2, padx=10, pady=10)
 
-	def validate_input(self, text: str):
-		"""Return true if text is a digit or is empty"""
-		return text.isdigit() or text == ""
+	def validate_input(self, text: str) -> bool:
+		"""Return true if text is a digit or is empty and check if length of input is 6 or less"""
+		return (text.isdigit() or text == "") and len(text) <= 6
+	
+	def check_answer(self, event) -> None:
+		if self.answer_var.get() == self.answer:
+			print("Correct")
+		else:
+			print("Wrong")

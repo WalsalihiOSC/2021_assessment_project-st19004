@@ -17,4 +17,4 @@ class BasePage(Frame):
 	
 	def page_back(self) -> None:
 		"""Tells program to go back one page"""
-		self.master.pop_page()
+		self.master.pop_page().destroy()
