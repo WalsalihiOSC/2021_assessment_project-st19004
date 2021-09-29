@@ -9,6 +9,8 @@ class HoverButton(Button):
 
 	def __init__(self, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)
+
+		self.activated = False
 		
 		self.bind("<Enter>", self.on_enter)
 		self.bind("<Leave>", self.on_leave)
@@ -19,7 +21,10 @@ class HoverButton(Button):
 
 	def on_leave(self, event) -> None:
 		"""Method for when <Leave> is triggered"""
-		self.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+		if not self.activated:
+			self.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+		else:
+			self.config(bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
 
 class BackButton(Button):
 	"""

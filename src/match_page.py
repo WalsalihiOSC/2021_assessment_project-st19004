@@ -122,6 +122,9 @@ class Page(BasePage):
 	def generate_question(self) -> None:
 		num1 = randint(1*10**(self.level-1), 1*10**self.level)
 		num2 = randint(1*10**(self.level-1), 1*10**self.level)
+		# Have the biggest number on the left side to make it easier
+		if num1 < num2:
+			num1, num2 = num2, num1
 		equation = f"{num1}{self.operator}{num2}"
 		self.title.label.config(text=f"{equation}=")
 		self.answer_var.set("")
@@ -135,5 +138,5 @@ class Page(BasePage):
 			return False
 
 	def validate_input(self, text: str) -> bool:
-		"""Return true if text is a digit or is empty and check if length of input is 6 or less"""
-		return (text.isdigit() or text == "") and len(text) <= 6
+		"""Return true if text is a digit or is empty"""
+		return (text.isdigit() or text == "")

@@ -27,10 +27,10 @@ class Page(BasePage):
 		header.level.label.grid(column=0, row=0, sticky=NSEW)
 
 		# Initialises difficultly
-		self.level=IntVar()
+		self.level=IntVar(value=1)
 		# Variable copied inside function
 		def create_difficulty_button(x: int) -> HoverButton:
-			return HoverButton(
+			button = HoverButton(
 				header.level,
 				text=x,
 				font=self.HEADER_FONT,
@@ -39,6 +39,16 @@ class Page(BasePage):
 				relief="flat",
 				command=lambda: self.level.set(x)
 			)
+			def update(a, b, c) -> None:
+				if x == self.level.get():
+					button.activated = True
+					button.config(bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
+				else:
+					button.activated = False
+					button.config(bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+			update(None, None, None) # Guarantees to update the colour and state
+			self.level.trace_add("write", update)
+			return button
 		# Range between 1 - 4 to represent Year level
 		for i in range(1, 5):
 			difficulty_button = create_difficulty_button(i)
