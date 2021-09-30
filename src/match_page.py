@@ -159,5 +159,4 @@ class Page(BasePage):
 			self.after(1000, self.step)
 	
 	def finish(self):
-		print("Finished")
-
+		self.show_result(self.level, self.operator, self.score.get())

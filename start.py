@@ -1,5 +1,5 @@
 from tkinter import Tk, BOTH
-from src import start_page, match_page, leaderboard_page
+from src import start_page, match_page, leaderboard_page, result_page
 from src.base_page import BasePage
 
 class Program(Tk):
@@ -37,6 +37,7 @@ class Program(Tk):
 			start
 			leaderboard
 			match
+			result
 		"""
 		if wanted_page is None:
 			raise ValueError("No page specified")
@@ -48,6 +49,8 @@ class Program(Tk):
 			page = leaderboard_page
 		elif wanted_page == "match":
 			page = match_page
+		elif wanted_page == "result":
+			page = result_page
 		
 		self.append_page(page, *args, **kwargs)
 
