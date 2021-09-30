@@ -1,5 +1,6 @@
 from tkinter import Button, Frame, Label, NSEW, LEFT, Entry, StringVar, IntVar
-from tkinter.constants import CENTER
+from tkinter.ttk import Progressbar
+from tkinter.constants import CENTER, HORIZONTAL
 from random import randint
 from typing import Tuple
 from .custom_widget import BackButton
@@ -15,6 +16,8 @@ class Page(BasePage):
 
 		# Unpacks the tuple into 2 variable
 		self.level, self.operator = match_settings
+		# Max time
+		self.time = 60
 		self.score = IntVar()
 		self.init_match()
 		
@@ -23,6 +26,7 @@ class Page(BasePage):
 		self.init_header_section()
 		self.init_content_section()
 		self.init_answer()
+		self.step() # Updating function
 	
 	def init_title_section(self) -> None:
 		self.title = Frame(self, bg=self.COLOURSCHEME[3])
@@ -40,11 +44,16 @@ class Page(BasePage):
 		self.header.columnconfigure(0, weight=4)
 		self.header.columnconfigure(1, weight=1)
 
-		self.header.user = Frame(self.header, bg=self.COLOURSCHEME[2])
-		self.header.user.grid(column=0, row=0, sticky=NSEW)
+		self.header.time = Frame(self.header, bg=self.COLOURSCHEME[2])
+		self.header.time.grid(column=0, row=0, sticky=NSEW)
 
-		self.header.user.label = Label(self.header.user, text="Time left", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
-		self.header.user.label.pack(side=LEFT)
+		self.header.time.label = Label(self.header.time, text="Time left: ", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
+		self.header.time.label.grid(column=0, row=0)
+		self.header.time.columnconfigure(0, weight=0)
+
+		self.header.time.value = Label(self.header.time, text=f"{self.time}", font=self.HEADER_FONT, bg=self.COLOURSCHEME[2], fg=self.COLOURSCHEME[1])
+		self.header.time.value.grid(column=1, row=0)
+		self.header.time.columnconfigure(1, weight=0)
 
 		self.header.score = Frame(self.header, bg=self.COLOURSCHEME[2])
 		self.header.score.grid(column=1, row=0, sticky=NSEW)
@@ -140,3 +149,15 @@ class Page(BasePage):
 	def validate_input(self, text: str) -> bool:
 		"""Return true if text is a digit or is empty"""
 		return (text.isdigit() or text == "")
+	
+	def step(self):
+		if self.time == 0:
+			self.finish()
+		else:
+			self.header.time.value.config(text=f"{self.time}")
+			self.time -= 1
+			self.after(1000, self.step)
+	
+	def finish(self):
+		print("Finished")
+
