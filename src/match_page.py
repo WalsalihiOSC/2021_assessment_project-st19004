@@ -75,7 +75,7 @@ class Page(BasePage):
 		self.content.columnconfigure(2, weight=1)
 		self.content.rowconfigure(0, weight=1)
 
-		self.init_calculator()
+		#self.init_calculator()
 
 	def init_calculator(self) -> None:
 		# Calculator

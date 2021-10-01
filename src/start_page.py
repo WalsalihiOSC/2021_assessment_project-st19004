@@ -79,14 +79,8 @@ class Page(BasePage):
 				))
 			)
 
-		# Initialises levels
-		for i, (difficulty, operator) in enumerate(zip(["Addition", "Subtraction", "Multiplication"], ["+", "-", "*"])):
-			content.level.rowconfigure(i, weight=1) # Row to take all horizontal space
-			content.level.columnconfigure(0, weight=1) # Difficutly column
-			content.level.columnconfigure(1, weight=0) # Leaderboard column
-			difficultly_button = create_level_button(difficulty, operator)
-			difficultly_button.grid(column=0, row=i, sticky=NSEW)
-			leaderboard_button = HoverButton(
+		def create_leaderboard_button(operator: str) -> HoverButton:
+			return HoverButton(
 				content.level,
 				text="T",
 				font=self.CONTENT_FONT,
@@ -94,6 +88,18 @@ class Page(BasePage):
 				fg=self.COLOURSCHEME[0],
 				relief="flat",
 				anchor="center",
-				command=self.show_leaderboard
+				command=lambda: self.show_leaderboard(
+					self.level.get(),
+					operator
+				)
 			)
+
+		# Initialises levels
+		for i, (difficulty, operator) in enumerate(zip(["Addition", "Subtraction", "Multiplication"], ["+", "-", "*"])):
+			content.level.rowconfigure(i, weight=1) # Row to take all horizontal space
+			content.level.columnconfigure(0, weight=1) # Difficutly column
+			content.level.columnconfigure(1, weight=0) # Leaderboard column
+			difficultly_button = create_level_button(difficulty, operator)
+			difficultly_button.grid(column=0, row=i, sticky=NSEW)
+			leaderboard_button = create_leaderboard_button(operator)
 			leaderboard_button.grid(column=1, row=i, sticky=NSEW)

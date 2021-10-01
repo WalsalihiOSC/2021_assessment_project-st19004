@@ -1,5 +1,7 @@
-from tkinter import Frame, Label, NSEW, LEFT
-from .custom_widget import BackButton
+from src import leaderboard
+from tkinter import Entry, Frame, Label, NSEW, LEFT
+from tkinter.constants import CENTER
+from .custom_widget import BackButton, HoverButton
 from .base_page import BasePage
 
 class Page(BasePage):
@@ -38,11 +40,26 @@ class Page(BasePage):
 		# Content section
 		content = Frame(self, bg=self.COLOURSCHEME[1])
 		content.grid(column=0, row=2, sticky=NSEW)
-		content.columnconfigure(0, weight=4)
+
+		content.user_label = Label(content, text="Name: ", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+		content.user_label.grid(column=0, row=0, sticky=NSEW)
+		content.columnconfigure(0, weight=0)
+
+		content.user_input = Entry(content, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+		content.user_input.grid(column=1, row=0, sticky=NSEW)
 		content.columnconfigure(1, weight=1)
 
-		content.user = Frame(content, bg=self.COLOURSCHEME[1])
-		content.user.grid(column=0, row=0, sticky=NSEW)
+		content.button = Frame(content)
+		content.button.grid(column=0, row=1, sticky=NSEW, columnspan=2)
 
-		content.score = Frame(content, bg=self.COLOURSCHEME[1])
-		content.score.grid(column=1, row=0, sticky=NSEW)
+		content.button.save = HoverButton(content.button, text="Save", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], command=lambda: self.save(level, operator, content.user_input.get(), score))
+		content.button.save.grid(column=0, row=0)
+		content.button.columnconfigure(0, weight=1)
+
+		content.button.exit = HoverButton(content.button, text="Exit without saving", font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], command=self.page_back_to_menu)
+		content.button.exit.grid(column=1, row=0)
+		content.button.columnconfigure(1, weight=1)
+
+	def save(self, level: str, operator: str, user: str, score: str) -> None:
+		leaderboard.append_data(level, operator, user, score)
+		self.page_back_to_menu()

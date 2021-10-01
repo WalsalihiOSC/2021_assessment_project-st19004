@@ -1,9 +1,10 @@
+from src import leaderboard
 from tkinter import Button, Frame, Image, Label, NSEW, LEFT, PhotoImage
 from .custom_widget import BackButton
 from .base_page import BasePage
 
 class Page(BasePage):
-	def __init__(self, *args, **kwargs) -> None:
+	def __init__(self, level, operator, *args, **kwargs) -> None:
 		super().__init__(*args, **kwargs)
 		self.columnconfigure(0, weight=1) # Ensure the frame size stretches to fit horizontally
 
@@ -11,7 +12,7 @@ class Page(BasePage):
 		title = Frame(self, bg=self.COLOURSCHEME[3])
 		title.grid(column=0, row=0, sticky=NSEW)
 
-		title.label = Label(title, text="Level {level} {difficulty}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
+		title.label = Label(title, text=f"Level {level} Operation:{operator}", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.label.grid(column=0, row=0)
 
 		back_button = BackButton(title, command=self.page_back, bg=self.COLOURSCHEME[3], relief="flat")
@@ -46,3 +47,14 @@ class Page(BasePage):
 
 		content.score = Frame(content, bg=self.COLOURSCHEME[1])
 		content.score.grid(column=1, row=0, sticky=NSEW)
+
+		# Get data or none if data doesn't exist
+		try:
+			data = leaderboard.filter_data(level, operator)
+		except FileNotFoundError:
+			data = []
+		for i, (user, score) in enumerate(data):
+			user_label = Label(content.user, text=user, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+			user_label.grid(column=0, row=i)
+			score_label = Label(content.score, text=score, font=self.CONTENT_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0])
+			score_label.grid(column=1, row=i)
