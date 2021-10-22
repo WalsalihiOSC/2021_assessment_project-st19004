@@ -117,16 +117,9 @@ class Page(BasePage):
 		if self.validate_input(input):
 			# Checks if answer is correct
 			# If correct award 1 point
-			# Else remove 1 point
 			if self.check_answer():
-				self.score.set(self.score.get()+1)
-			else:
-				self.score.set(self.score.get()-1)
+				self.increment_score()
 			self.generate_question()
-		else:
-			# If for unexplained reason the input was invalid
-			# Quietly fail the answer and remove 1 point
-			self.score.set(self.score.get()-1)
 
 	def generate_question(self) -> None:
 		num1 = randint(1*10**(self.level-1), 1*10**self.level)
@@ -149,6 +142,9 @@ class Page(BasePage):
 	def validate_input(self, text: str) -> bool:
 		"""Return true if text is a digit or is empty"""
 		return (text.isdigit() or text == "")
+
+	def increment_score(self) -> None:
+		self.score.set(self.score.get()+1)
 	
 	def step(self):
 		if self.time == 0:
