@@ -26,6 +26,7 @@ class Page(BasePage):
 		self.init_header_section()
 		self.init_content_section()
 		self.init_answer()
+		self.init_calculator()
 		self.step() # Updating function
 	
 	def init_title_section(self) -> None:
@@ -75,8 +76,6 @@ class Page(BasePage):
 		self.content.columnconfigure(2, weight=1)
 		self.content.rowconfigure(0, weight=1)
 
-		#self.init_calculator()
-
 	def init_calculator(self) -> None:
 		# Calculator
 		calculator = Frame(self.content, bg=self.COLOURSCHEME[1])
@@ -87,22 +86,35 @@ class Page(BasePage):
 		padding_frame_left.grid(column=0, row=0, sticky=NSEW)
 		padding_frame_right = Frame(self.content, bg=self.COLOURSCHEME[1])
 		padding_frame_right.grid(column=2, row=0, sticky=NSEW)
+		
+		def command(x: str) -> None:
+			if x.isdigit():
+				# Regular digits that is safe for the answer box
+				self.answer_var.set(self.answer_var.get() + x)
+				print("entered digit")
+			elif x == "↲":
+				# Enter
+				# Submits the current answer box for checking and scoring
+				self.answer()
+			elif x == "←":
+				# Backspace
+				# Removes 1 character from answer box
+				self.answer_var.set(self.answer_var.get()[0:-1])
+			else:
+				# Just in case I add a new value and forgot a case for it
+				raise ValueError("Invalid calculator button")
+		
+		def create_calculator_button(i: int, v: str) -> None:
+			col, row = i % 3, int(i / 3)
+			calculator.columnconfigure(col, weight=1)
+			calculator.rowconfigure(row, weight=1)
+			button = Button(calculator, text=v, bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid", command=lambda: command(v))
+			button.grid(column=col, row=row, sticky=NSEW, padx=10, pady=10)
 
 		# Initialisation for the calculator's buttons
-		for row in range(3):
-			for col in range(3):
-				calculator.columnconfigure(col, weight=1)
-				calculator.rowconfigure(row, weight=1)
-				label = Label(calculator, text=str(row*3+col+1), bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
-				label.grid(column=col, row=row, sticky=NSEW, padx=10, pady=10)
-		# Initialisation for the last 2 buttons
-		# Should be changed to reduce duplication
-		calculator.rowconfigure(3, weight=1)
-		label = Label(calculator, text="0", bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
-		label.grid(column=0, row=3, sticky=NSEW, padx=10, pady=10)
-		label = Label(calculator, text="Enter", bg=self.COLOURSCHEME[1], font=self.CONTENT_FONT, borderwidth=1, relief="solid")
-		label.grid(column=1, row=3, sticky=NSEW, columnspan=2, padx=10, pady=10)
-
+		for (i, v) in enumerate(["1", "2", "3", "4", "5", "6", "7", "8", "9", "←", "0", "↲"]):
+			create_calculator_button(i, v)
+			
 	def init_answer(self) -> None:
 		self.answer_var = answer_var = StringVar()
 		answer_box = Entry(self.title, width=6, font=self.TITLE_FONT, bg=self.COLOURSCHEME[1], fg=self.COLOURSCHEME[0], justify=CENTER, textvariable=answer_var, validate="key", validatecommand=(self.register(self.validate_input), "%P"))
@@ -110,7 +122,7 @@ class Page(BasePage):
 		answer_box.bind("<Return>", self.answer)
 		self.generate_question()
 
-	def answer(self, event) -> None:
+	def answer(self, event=None) -> None:
 		input = self.answer_var.get()
 		# Just in case the input wasn't validated 
 		# when inputted for whatever reason
