@@ -11,7 +11,7 @@ class Page(BasePage):
 		title = Frame(self, bg=self.COLOURSCHEME[3])
 		title.grid(column=0, row=0, sticky=NSEW)
 
-		title.label = Label(title, text="Untitled Math Program", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
+		title.label = Label(title, text="Ormiston Computing", font=self.TITLE_FONT, bg=self.COLOURSCHEME[3], fg=self.COLOURSCHEME[1])
 		title.label.grid(column=0, row=0)
 
 		# Header section
@@ -82,7 +82,7 @@ class Page(BasePage):
 		def create_leaderboard_button(operator: str) -> HoverButton:
 			return HoverButton(
 				content.level,
-				text="T",
+				text="🏆",
 				font=self.CONTENT_FONT,
 				bg=self.COLOURSCHEME[1],
 				fg=self.COLOURSCHEME[0],
