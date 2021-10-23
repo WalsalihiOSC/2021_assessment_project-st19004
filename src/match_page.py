@@ -145,14 +145,18 @@ class Page(BasePage):
 		self.correct_answer = correct_answer = str(eval(equation))
 	
 	def check_answer(self) -> bool:
-		if float(self.answer_var.get()) == float(self.correct_answer):
-			return True
+		answer = self.answer_var.get()
+		if answer:
+			if float(answer) == float(self.correct_answer):
+				return True
+			else:
+				return False
 		else:
 			return False
 
 	def validate_input(self, text: str) -> bool:
 		"""Return true if text is a digit or is empty"""
-		return (text.isdigit() or text != "")
+		return (text.isdigit() or text == "")
 
 	def increment_score(self) -> None:
 		self.score.set(self.score.get()+1)
