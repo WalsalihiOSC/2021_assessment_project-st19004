@@ -95,7 +95,7 @@ class Page(BasePage):
 			)
 
 		# Initialises levels
-		for i, (difficulty, operator) in enumerate(zip(["Addition", "Subtraction", "Multiplication"], ["+", "-", "*"])):
+		for i, (difficulty, operator) in enumerate(zip(["➕Addition", "➖Subtraction", "✖Multiplication"], ["+", "-", "*"])):
 			content.level.rowconfigure(i, weight=1) # Row to take all horizontal space
 			content.level.columnconfigure(0, weight=1) # Difficutly column
 			content.level.columnconfigure(1, weight=0) # Leaderboard column
