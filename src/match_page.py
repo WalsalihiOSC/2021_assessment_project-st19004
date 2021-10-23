@@ -91,7 +91,6 @@ class Page(BasePage):
 			if x.isdigit():
 				# Regular digits that is safe for the answer box
 				self.answer_var.set(self.answer_var.get() + x)
-				print("entered digit")
 			elif x == "↲":
 				# Enter
 				# Submits the current answer box for checking and scoring
