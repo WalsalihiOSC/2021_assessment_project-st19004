@@ -7,6 +7,10 @@ class BasePage(Frame):
 	HEADER_FONT = ("Arial", 32)
 	CONTENT_FONT = ("Arial", 32)
 
+	def show_main(self, *args, **kwargs) -> None:
+		self.master.show_page("start", *args, **kwargs)
+
+
 	def show_leaderboard(self, *args, **kwargs) -> None:
 		"""Tells program to show leaderboard"""
 		self.master.show_page("leaderboard", *args, **kwargs)

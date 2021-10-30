@@ -1,5 +1,5 @@
 from tkinter import Tk, BOTH
-from src import start_page, match_page, leaderboard_page, result_page
+from src import age_page, start_page, match_page, leaderboard_page, result_page
 from src.base_page import BasePage
 
 class Program(Tk):
@@ -8,7 +8,7 @@ class Program(Tk):
 		self.pages: list[BasePage] = []
 
 		if initial_page is not None:
-			self.append_page(start_page)
+			self.append_page(age_page)
 		
 		self.geometry("1200x700")
 		self.mainloop()
